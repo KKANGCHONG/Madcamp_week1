@@ -2,6 +2,7 @@ package com.example.madcamp_week1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,8 +39,14 @@ class MainActivity : AppCompatActivity() {
 
         if (cursor.moveToFirst()) {
             do {
-                val title = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CAPSULE_TITLE))
-                itemList.add(Item(title))
+                val columnIndex = cursor.getColumnIndex(DatabaseHelper.CAPSULE_TITLE)
+                if (columnIndex != -1) { // 유효한 열 인덱스인지 확인
+                    val title = cursor.getString(columnIndex)
+                    itemList.add(Item(title))
+                } else {
+                    // 예외 처리 또는 로그 출력
+                    Log.e("CursorError", "Invalid column index for CAPSULE_TITLE")
+                }
             } while (cursor.moveToNext())
         }
         cursor.close()
