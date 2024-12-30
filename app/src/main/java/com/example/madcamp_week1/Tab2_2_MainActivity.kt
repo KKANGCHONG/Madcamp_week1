@@ -137,6 +137,15 @@ class Tab2_2_MainActivity : ComponentActivity() {
         }
     }
 
+    private fun deleteDatabase() {
+        val isDeleted = deleteDatabase(DatabaseHelper.DATABASE_NAME)
+        if (isDeleted) {
+            Toast.makeText(this, "데이터베이스 삭제 완료", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "데이터베이스 삭제 실패", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun getImageBlobFromUri(uri: Uri): ByteArray? {
         return try {
             contentResolver.openInputStream(uri)?.use { it.readBytes() } // BLOB 데이터로 변환
