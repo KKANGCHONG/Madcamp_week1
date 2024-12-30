@@ -75,28 +75,27 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         location: String,
         imageIds: List<Long> // 이미지 ID 리스트
     ): Long {
-        return writableDatabase.use { db ->
-            val imageReferences = imageIds.joinToString(",") // 쉼표로 구분된 문자열로 변환
-            val values = ContentValues().apply {
-                put(CAPSULE_TITLE, title)
-                put(CAPSULE_TEXT, text)
-                put(CAPSULE_DATE, date)
-                put(CAPSULE_LOCATION, location)
-                put(CAPSULE_IMAGES, imageReferences)
+        val db = writableDatabase
+        val imageReferences = imageIds.joinToString(",") // 쉼표로 구분된 문자열로 변환
+        val values = ContentValues().apply {
+            put(CAPSULE_TITLE, title)
+            put(CAPSULE_TEXT, text)
+            put(CAPSULE_DATE, date)
+            put(CAPSULE_LOCATION, location)
+            put(CAPSULE_IMAGES, imageReferences)
+        }
+
+        return try {
+            val result = db.insert(TABLE_NAME1, null, values)
+            if (result == -1L) {
+                Log.e("DB_INSERT", "캡슐 삽입 실패: $values")
+            } else {
+                Log.d("DB_INSERT", "캡슐 삽입 성공, ID: $result")
             }
-            try {
-                val result = db.insert(TABLE_NAME1, null, values)
-                if (result == -1L) {
-                    Log.e("DB_INSERT", "캡슐 삽입 실패: $values")
-                } else {
-                    Log.d("DB_INSERT", "캡슐 삽입 성공, ID: $result")
-                    logCapsules()
-                }
-                result
-            } catch (e: Exception) {
-                Log.e("DB_INSERT", "캡슐 삽입 중 예외 발생: ${e.message}")
-                -1L
-            }
+            result
+        } catch (e: Exception) {
+            Log.e("DB_INSERT", "캡슐 삽입 중 예외 발생: ${e.message}")
+            -1L
         }
     }
 

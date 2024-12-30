@@ -18,7 +18,7 @@
 
         <!-- MainActivity 등록 -->
         <activity
-            android:name=".MainActivity"
+            android:name=".Tab1_1_MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Madcampweek1">

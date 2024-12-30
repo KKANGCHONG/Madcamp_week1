@@ -80,6 +80,7 @@ class Tab2_2_MainActivity : ComponentActivity() {
                     location = "Some Location",
                     imageIds = selectedImageIds.toList()
                 )
+                databaseHelper.logCapsules()
                 if (capsuleId != -1L) {
                     Toast.makeText(this, "캡슐이 성공적으로 생성되었습니다.", Toast.LENGTH_SHORT).show()
                 } else {
