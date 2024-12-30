@@ -96,8 +96,14 @@ class Tab2_2_MainActivity : ComponentActivity() {
         // 버튼 클릭 리스너 설정
         goToTab2_3Button.setOnClickListener {
             // Tab2_3_MainActivity로 이동
-            val intent = Intent(this, Tab2_3_MainActivity::class.java)
-            startActivity(intent)
+            val latestCapsuleId = databaseHelper.getLatestCapsuleId()
+            if (latestCapsuleId != null) {
+                val intent = Intent(this, Tab2_3_MainActivity::class.java)
+                intent.putExtra("capsuleId", latestCapsuleId)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "캡슐이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

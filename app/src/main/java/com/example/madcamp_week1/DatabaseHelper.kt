@@ -149,6 +149,63 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
     }
 
+    // 가장 최근 캡슐 ID 반환
+    fun getLatestCapsuleId(): Long? {
+        val db = readableDatabase
+        val query = "SELECT $CAPSULE_ID FROM $TABLE_NAME1 ORDER BY $CAPSULE_ID DESC LIMIT 1"
+        val cursor = db.rawQuery(query, null)
+
+        return if (cursor.moveToFirst()) {
+            val capsuleId = cursor.getLong(cursor.getColumnIndexOrThrow(CAPSULE_ID))
+            cursor.close()
+            capsuleId
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
+    // 여기서부터는 반환한 캡슐의 데이터 수정
+    fun updateCapsuleTitle(capsuleId: Long, newTitle: String): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(CAPSULE_TITLE, newTitle)
+        }
+        val result = db.update(TABLE_NAME1, values, "$CAPSULE_ID=?", arrayOf(capsuleId.toString()))
+        db.close()
+        return result > 0
+    }
+
+    fun updateCapsuleText(capsuleId: Long, newTitle: String): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(CAPSULE_TEXT, newTitle)
+        }
+        val result = db.update(TABLE_NAME1, values, "$CAPSULE_ID=?", arrayOf(capsuleId.toString()))
+        db.close()
+        return result > 0
+    }
+
+    fun updateCapsuleDate(capsuleId: Long, newTitle: String): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(CAPSULE_DATE, newTitle)
+        }
+        val result = db.update(TABLE_NAME1, values, "$CAPSULE_ID=?", arrayOf(capsuleId.toString()))
+        db.close()
+        return result > 0
+    }
+
+    fun updateCapsuleLocate(capsuleId: Long, newTitle: String): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(CAPSULE_LOCATION, newTitle)
+        }
+        val result = db.update(TABLE_NAME1, values, "$CAPSULE_ID=?", arrayOf(capsuleId.toString()))
+        db.close()
+        return result > 0
+    }
+
     // 특정 이미지 삭제
     fun deleteImageFromGallery(imageId: Long): Boolean {
         return writableDatabase.use { db ->
