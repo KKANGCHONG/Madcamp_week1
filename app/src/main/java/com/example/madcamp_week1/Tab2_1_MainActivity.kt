@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.content.Intent
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
@@ -71,6 +72,15 @@ class Tab2_1_MainActivity : ComponentActivity() {
         capsulePhotosButton.setOnClickListener {
             requestGalleryLauncher.launch("image/*")
          }
+
+        val goToTab2_2Button = findViewById<Button>(R.id.nextButton)
+
+        // 버튼 클릭 리스너 설정
+        goToTab2_2Button.setOnClickListener {
+            // Tab2_2_MainActivity로 이동
+            val intent = Intent(this, Tab2_2_MainActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
