@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F9F9F9">
+    android:background="#F5F5F6">
 
     <!-- 제목 텍스트 -->
     <TextView

@@ -47,13 +47,20 @@
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".Tab2_2_MainActivity"
             android:exported="true">
         </activity>
 
-        <activity android:name=".Tab2_2_SecondActivity" />
+        <activity
+            android:name=".Tab2_3_MainActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".Tab2_4_MainActivity"
+            android:exported="true">
+        </activity>
 
 
     </application>

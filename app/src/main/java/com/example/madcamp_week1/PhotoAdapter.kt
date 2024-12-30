@@ -11,12 +11,13 @@ import android.widget.Button // Button 임포트
 
 class PhotoAdapter(
     private val photos: List<Pair<Long, ByteArray>>,
-    private val onDeleteClick: (Int) -> Unit
+    private val isDeleteAction: Boolean,
+    private val onButtonClick: (Int, Long) -> Unit // 버튼 클릭 시 호출
 ) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     inner class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
-        val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
+        val actionButton: Button = itemView.findViewById(R.id.actionButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
@@ -29,8 +30,11 @@ class PhotoAdapter(
         val photo = photos[position]
         val bitmap = BitmapFactory.decodeByteArray(photo.second, 0, photo.second.size)
         holder.imageView.setImageBitmap(bitmap)
-        holder.deleteButton.setOnClickListener {
-            onDeleteClick(position)
+
+        // 버튼 텍스트 및 동작 설정
+        holder.actionButton.text = if (isDeleteAction) "Delete" else "Upload"
+        holder.actionButton.setOnClickListener {
+            onButtonClick(position, photo.first)
         }
     }
 

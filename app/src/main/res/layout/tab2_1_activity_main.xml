@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F6">
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
@@ -28,14 +29,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
-
-        <Button
-            android:id="@+id/capsulePhotosButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Send to capsule"
-            android:textSize="12sp" />
 
         <Button
             android:id="@+id/selectPhotosButton"

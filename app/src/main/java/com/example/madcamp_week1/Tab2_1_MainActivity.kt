@@ -50,9 +50,17 @@ class Tab2_1_MainActivity : ComponentActivity() {
 
         // RecyclerView 초기화
         recyclerView = findViewById(R.id.recyclerView)
-        adapter = PhotoAdapter(photoList, onDeleteClick = { position ->
-            deletePhoto(position)
-        }) // photoList를 어댑터에 전달
+        adapter = PhotoAdapter(photoList,isDeleteAction = true) { position, id ->
+            // 삭제 로직
+            val success = databaseHelper.deleteImageFromGallery(id)
+            if (success) {
+                photoList.removeAt(position) // RecyclerView 업데이트
+                adapter.notifyItemRemoved(position)
+                Toast.makeText(this, "사진이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "삭제 실패", Toast.LENGTH_SHORT).show()
+            }
+        } // photoList를 어댑터에 전달
         recyclerView.layoutManager = GridLayoutManager(this, 3)
         recyclerView.adapter = adapter
 
@@ -67,11 +75,6 @@ class Tab2_1_MainActivity : ComponentActivity() {
         selectPhotosButton.setOnClickListener {
             requestGalleryLauncher.launch("image/*")
         }
-
-        val capsulePhotosButton = findViewById<Button>(R.id.capsulePhotosButton)  // 캡슐 DB에 넣는 동작 구현 필요
-        capsulePhotosButton.setOnClickListener {
-            requestGalleryLauncher.launch("image/*")
-         }
 
         val goToTab2_2Button = findViewById<Button>(R.id.nextButton)
 
@@ -109,18 +112,6 @@ class Tab2_1_MainActivity : ComponentActivity() {
             adapter.notifyDataSetChanged() // RecyclerView 업데이트
         } else {
             Log.d("loadPhotosFromDatabase", "데이터베이스에 저장된 사진이 없습니다.")
-        }
-    }
-
-    private fun deletePhoto(position: Int) {
-        val photo = photoList[position]
-        val success = databaseHelper.deleteImageFromGallery(photo.first) // DB에서 삭제
-        if (success) {
-            photoList.removeAt(position) // RecyclerView에서 삭제
-            adapter.notifyItemRemoved(position)
-            Toast.makeText(this, "사진이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "삭제 실패", Toast.LENGTH_SHORT).show()
         }
     }
 
