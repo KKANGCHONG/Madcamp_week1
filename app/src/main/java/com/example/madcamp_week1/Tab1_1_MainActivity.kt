@@ -9,10 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_week1.DatabaseHelper.Companion.CAPSULE_TITLE
 
 class Tab1_1_MainActivity : AppCompatActivity() {
+    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tab1_1_activity_main)
+
+        databaseHelper = DatabaseHelper(this)
+        databaseHelper.logCapsules()
+
+
 
         // RecyclerView 초기화
         val recyclerView: RecyclerView = findViewById(R.id.rv_list)
@@ -34,7 +40,7 @@ class Tab1_1_MainActivity : AppCompatActivity() {
         val itemList = mutableListOf<Item.Item1>()
         val dbHelper = DatabaseHelper(this)
         val db = dbHelper.readableDatabase
-        val query = "SELECT $CAPSULE_TITLE AS 캡슐_이름 FROM ${DatabaseHelper.TABLE_NAME1} GROUP BY $CAPSULE_TITLE"
+        val query = "SELECT $CAPSULE_TITLE FROM ${DatabaseHelper.TABLE_NAME1} GROUP BY $CAPSULE_TITLE"
         val cursor = db.rawQuery(query, null)
 
         if (cursor.moveToFirst()) {
@@ -43,6 +49,7 @@ class Tab1_1_MainActivity : AppCompatActivity() {
                 if (columnIndex != -1) { // 유효한 열 인덱스인지 확인
                     val title = cursor.getString(columnIndex)
                     itemList.add(Item.Item1(title))
+                    Log.e("추가된 캡슐 제목", "$title")
                 } else {
                     // 예외 처리 또는 로그 출력
                     Log.e("CursorError", "Invalid column index for CAPSULE_TITLE")
@@ -51,7 +58,7 @@ class Tab1_1_MainActivity : AppCompatActivity() {
         }
         cursor.close()
         db.close()
-
+        Log.e("ㅑㅅㄷㅁㄴㄹㅁㄴㄹㅁㄴㄹㅁㄴㄹㄴㅁ", "$itemList")
         return itemList
     }
 }

@@ -26,6 +26,8 @@ class Tab2_2_MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tab2_2_activity_main)
 
+        //deleteDatabase()
+
         // DatabaseHelper 초기화
         databaseHelper = DatabaseHelper(this)
 

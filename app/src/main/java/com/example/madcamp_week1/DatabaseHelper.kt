@@ -210,7 +210,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         readableDatabase.use { db ->
             val query = "SELECT * FROM $TABLE_NAME1"
             val cursor = db.rawQuery(query, null)
-            Log.d("DB_CONTENTS", "Capsule 테이블 데이터:")
+            Log.d("DB_CONTENTSㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㄹㅁㄴㄹㅁㄴㄹㅁㄴㅇ", "Capsule 테이블 데이터:")
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(cursor.getColumnIndexOrThrow(CAPSULE_ID))
                 val title = cursor.getString(cursor.getColumnIndexOrThrow(CAPSULE_TITLE))

@@ -16,15 +16,17 @@ class Tab1_3_MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tab1_3_activity_main)
 
+
         // DatabaseHelper 초기화
         databaseHelper = DatabaseHelper(this)
 
         // RecyclerView 초기화
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
 
         val title1 = intent.getStringExtra("title")
+
         val capsuleid = getCapsuleIdViaTitle(title1)
+
 
         val items = listOf(
             Item.TypeA(title = databaseHelper.getTitleForCapsule(capsuleid).toString(),
@@ -34,19 +36,23 @@ class Tab1_3_MainActivity : ComponentActivity() {
             Item.TypeC(location = "paris")
         )
 
-        recyclerView.adapter = Tab1_3_Adapter(items)
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = Tab1_3_Adapter(items).apply {
+            // DatabaseHelper 전달
+            this.databaseHelper = this@Tab1_3_MainActivity.databaseHelper
+        }
 
 
     }
 
 
     private fun getCapsuleIdViaTitle(title: String?): Long {
-        val itemList = mutableListOf<com.example.madcamp_week1.Item>()
+        val itemList = mutableListOf<com.example.madcamp_week1.Item.Item1>()
         val dbHelper = DatabaseHelper(this)
         val db = dbHelper.readableDatabase
-        val query =
-            "SELECT $CAPSULE_ID AS 캡슐_아이디 FROM ${DatabaseHelper.TABLE_NAME1} GROUP BY $CAPSULE_TITLE"
-        val cursor = db.rawQuery(query, null)
+        val query = "SELECT $CAPSULE_ID FROM ${DatabaseHelper.TABLE_NAME1} WHERE $CAPSULE_TITLE = ?"
+        val cursor = db.rawQuery(query, arrayOf((title)))
 
         var capsuleId: Long = -1 // 기본값: 찾지 못한 경우를 위한 값
 

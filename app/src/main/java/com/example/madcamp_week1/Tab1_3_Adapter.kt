@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class Tab1_3_Adapter(private val itemList: List<Item>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    lateinit var databaseHelper: DatabaseHelper
 
     companion object {
         private const val VIEW_TYPE_A = 0
@@ -22,9 +23,9 @@ class Tab1_3_Adapter(private val itemList: List<Item>) :
 
     // ViewHolder for TypeA
     class TypeAViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.capsulestring)
-        val text: TextView = itemView.findViewById(R.id.capsulestring)
-        val date: TextView = itemView.findViewById(R.id.capsulestring)
+        val title: TextView = itemView.findViewById(R.id.capsuleTitle)
+        val text: TextView = itemView.findViewById(R.id.capsuleText)
+        val date: TextView = itemView.findViewById(R.id.capsuleDate)
     }
 
     // ViewHolder for TypeB
@@ -79,7 +80,7 @@ class Tab1_3_Adapter(private val itemList: List<Item>) :
             }
             is Item.TypeB -> {
                 val viewHolder = holder as TypeBViewHolder
-                val gridAdapter = GridImageAdapter(item.imageRes)
+                val gridAdapter = GridImageAdapter(item.imageRes, databaseHelper)
                 viewHolder.recyclerView.layoutManager = GridLayoutManager(holder.itemView.context, 3)
                 viewHolder.recyclerView.adapter = gridAdapter
             }
@@ -90,11 +91,12 @@ class Tab1_3_Adapter(private val itemList: List<Item>) :
         }
     }
 
-    class GridImageAdapter(private val imageList: List<Long>) :
-        RecyclerView.Adapter<GridImageAdapter.ImageViewHolder>() {
+    class GridImageAdapter(
+        private val imageList: List<Long>,
+        private val databaseHelper: DatabaseHelper // DatabaseHelper를 생성자에서 전달받음
+    ) : RecyclerView.Adapter<GridImageAdapter.ImageViewHolder>() {
 
-        private lateinit var databaseHelper: DatabaseHelper
-        private val photos = databaseHelper.getImageListFromIds(imageList)
+        private val photos: List<ByteArray> = databaseHelper.getImageListFromIds(imageList)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.show_capsule_image, parent, false)

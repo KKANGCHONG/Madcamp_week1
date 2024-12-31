@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -26,6 +27,7 @@ class Tab1_2_MainActivity : AppCompatActivity() {
             // 3초 후 다음 화면으로 전환
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this, Tab1_3_MainActivity::class.java)
+                Log.d("선택된 타이틀 전송", "$title")
                 intent.putExtra("title", title) // 데이터 전달
                 startActivity(intent)
                 finish() // 현재 액티비티 종료
