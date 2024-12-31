@@ -15,7 +15,7 @@
         android:id="@+id/navigation_tab2"
         android:name="com.example.week1project.ui.Tab2.Tab2Fragment"
         android:label=""
-        tools:layout="@layout/fragment_tab2" />
+        tools:layout="@layout/fragment_tab2_1" />
 
     <fragment
         android:id="@+id/navigation_tab3"
