@@ -4,4 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Tab2.Tab2Fragment"/>
+    tools:context=".ui.Tab2.Tab2_1_Fragment">
+
+    <!-- RecyclerView -->
+
+    <!-- 버튼 그룹 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="383dp"
+        android:layout_height="617dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"
+        tools:listitem="@layout/photo_item" />
+
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 사진 선택 버튼 -->
+
+        <!-- 다음 화면 이동 버튼 -->
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/selectPhotosButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="사진 선택"
+        tools:layout_editor_absoluteX="196dp"
+        tools:layout_editor_absoluteY="659dp" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="다음"
+        tools:layout_editor_absoluteX="307dp"
+        tools:layout_editor_absoluteY="659dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
