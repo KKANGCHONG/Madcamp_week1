@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 class Tab2_1_MainActivity : ComponentActivity() {
     private lateinit var databaseHelper: DatabaseHelper
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PhotoAdapter
+    private lateinit var adapter: Tab2_PhotoAdapter
     private val photoList = mutableListOf<Pair<Long, ByteArray>>() // 변경된 photoList 타입
 
     private val requestGalleryLauncher = registerForActivityResult(
@@ -48,9 +48,10 @@ class Tab2_1_MainActivity : ComponentActivity() {
         // DatabaseHelper 초기화
         databaseHelper = DatabaseHelper(this)
 
+
         // RecyclerView 초기화
         recyclerView = findViewById(R.id.recyclerView)
-        adapter = PhotoAdapter(photoList,isDeleteAction = true) { position, id ->
+        adapter = Tab2_PhotoAdapter(photoList,isDeleteAction = true) { position, id ->
             // 삭제 로직
             val success = databaseHelper.deleteImageFromGallery(id)
             if (success) {

@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Button // Button 임포트
+import android.graphics.Color
 
 
-class PhotoAdapter(
+class Tab2_PhotoAdapter(
     private val photos: List<Pair<Long, ByteArray>>,
     private val isDeleteAction: Boolean,
     private val onButtonClick: (Int, Long) -> Unit // 버튼 클릭 시 호출
-) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+) : RecyclerView.Adapter<Tab2_PhotoAdapter.PhotoViewHolder>() {
 
     inner class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imageView)
+        val imageView: ImageView = itemView.findViewById(R.id.imageView2)
         val actionButton: Button = itemView.findViewById(R.id.actionButton)
     }
 
@@ -31,12 +32,27 @@ class PhotoAdapter(
         val bitmap = BitmapFactory.decodeByteArray(photo.second, 0, photo.second.size)
         holder.imageView.setImageBitmap(bitmap)
 
+        var isSelected = false
+
         // 버튼 텍스트 및 동작 설정
-        holder.actionButton.text = if (isDeleteAction) "Delete" else "Upload"
+        if (isDeleteAction) {
+            holder.actionButton.text = "Delete"
+        } else {
+            holder.actionButton.text = "Select"
+        }
         holder.actionButton.setOnClickListener {
             onButtonClick(position, photo.first)
+            if (!isDeleteAction)  {
+                if (isSelected) {
+                    holder.actionButton.setBackgroundColor(Color.LTGRAY)
+                    isSelected = false
+                } else {
+                    holder.actionButton.setBackgroundColor(Color.GREEN)
+                    isSelected = true
+                }
+                }
+            }
         }
-    }
-
     override fun getItemCount() = photos.size
 }
+

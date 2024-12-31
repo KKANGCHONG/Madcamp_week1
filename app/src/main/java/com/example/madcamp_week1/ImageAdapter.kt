@@ -15,7 +15,7 @@ class ImageAdapter(
 ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageView: ImageView = view.findViewById(R.id.imageView)
+        val imageView: ImageView = view.findViewById(R.id.imageView2)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

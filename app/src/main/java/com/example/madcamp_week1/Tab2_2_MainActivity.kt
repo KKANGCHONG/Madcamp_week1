@@ -9,7 +9,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,29 +17,10 @@ import androidx.recyclerview.widget.RecyclerView
 class Tab2_2_MainActivity : ComponentActivity() {
     private lateinit var databaseHelper: DatabaseHelper
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PhotoAdapter
+    private lateinit var adapter: Tab2_PhotoAdapter
     private val selectedImageIds = mutableSetOf<Long>()
     private val photoList = mutableListOf<Pair<Long, ByteArray>>() // 변경된 photoList 타입
 
-    private val requestGalleryLauncher = registerForActivityResult(
-        ActivityResultContracts.GetMultipleContents()
-    ) { uris: List<Uri>? ->
-        uris?.forEach { uri ->
-            val imageBlob = getImageBlobFromUri(uri)
-            if (imageBlob != null) {
-                val galleryId = databaseHelper.insertImageToGallery(imageBlob)
-                if (galleryId != -1L) {
-                    Log.d("BLOB 저장", "저장된 Gallery ID: $galleryId")
-                    photoList.add(Pair(galleryId, imageBlob))
-                    adapter.notifyItemInserted(photoList.size - 1) // RecyclerView 업데이트
-                } else {
-                    Log.e("BLOB 저장", "Gallery 테이블에 삽입 실패")
-                }
-            } else {
-                Log.e("BLOB 변환 실패", "URI: $uri")
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,14 +31,8 @@ class Tab2_2_MainActivity : ComponentActivity() {
 
         // RecyclerView 초기화
         recyclerView = findViewById(R.id.recyclerView)
-        adapter = PhotoAdapter(photoList, isDeleteAction = false) { position, id ->
-            if (selectedImageIds.contains(id)) {
-                selectedImageIds.remove(id)
-                Toast.makeText(this, "사진 선택 해제", Toast.LENGTH_SHORT).show()
-            } else {
-                selectedImageIds.add(id)
-                Toast.makeText(this, "사진 선택 완료", Toast.LENGTH_SHORT).show()
-            }
+        adapter = Tab2_PhotoAdapter(photoList, isDeleteAction = false) { position, id ->
+            if (selectedImageIds.contains(id)) {selectedImageIds.remove(id)} else {selectedImageIds.add(id)}
         }
         recyclerView.layoutManager = GridLayoutManager(this, 3)
         recyclerView.adapter = adapter
@@ -137,7 +111,7 @@ class Tab2_2_MainActivity : ComponentActivity() {
         }
     }
 
-    private fun deleteDatabase() {
+    private fun deleteDatabase() { //이전 갤러리 기록이 있는 디바이스의 경우 1회 호출 후 앱 재실행 필요
         val isDeleted = deleteDatabase(DatabaseHelper.DATABASE_NAME)
         if (isDeleted) {
             Toast.makeText(this, "데이터베이스 삭제 완료", Toast.LENGTH_SHORT).show()

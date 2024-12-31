@@ -6,6 +6,6 @@ import androidx.activity.ComponentActivity
 class Tab2_4_MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
+        setContentView(R.layout.tab2_4_activity_main)
     }
 }

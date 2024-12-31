@@ -1,12 +1,12 @@
 package com.example.madcamp_week1
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_week1.databinding.ListItemBinding
 
-class RecyclerViewAdapter(private var itemList: MutableList<Item>) :
+class RecyclerViewAdapter(private var itemList: MutableList<Item.Item1>) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     // ViewHolder 클래스 정의
@@ -22,9 +22,24 @@ class RecyclerViewAdapter(private var itemList: MutableList<Item>) :
         // 현재 아이템 가져오기
         val currentItem = itemList[position]
         holder.binding.dateHeader.text = currentItem.text // list_item.xml의 TextView ID
+
+        // 클릭 이벤트 추가
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, Tab1_2_MainActivity::class.java)
+            intent.putExtra("title", currentItem.text) // 데이터 전달
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, item: Item)
+    }
+
+
+
 }
