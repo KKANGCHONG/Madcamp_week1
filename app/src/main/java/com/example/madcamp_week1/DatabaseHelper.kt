@@ -292,8 +292,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
     }
 
-    // 갤러리 테이블에서 모든 이미지 로드
+    // 갤러리 테이블에서 모든 이미지 로드 (캡슐에 있는거 제외)
     fun getAllImagesFromGallery(): List<Pair<Long, ByteArray>> {
+
         return readableDatabase.use { db ->
             val cursor = db.query(
                 TABLE_NAME2,
@@ -304,12 +305,30 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 null,
                 null
             )
+
+            // Capsule DB에서 Gallery ID 가져오기
+            val excludedIds = mutableListOf<Long>()
+            val capsuleQuery = "SELECT $CAPSULE_IMAGES FROM $TABLE_NAME1"
+            val capsuleCursor = db.rawQuery(capsuleQuery, null)
+
+            if (capsuleCursor.moveToFirst()) {
+                do {
+                    val imageReferences = capsuleCursor.getString(0) // 쉼표로 구분된 ID 문자열
+                    excludedIds.addAll(imageReferences.split(",").map { it.toLong() })
+                } while (capsuleCursor.moveToNext())
+            }
+            capsuleCursor.close()
+
+            //Gallery DB에서 제외된 ID 제외 후 가져오기
             val images = mutableListOf<Pair<Long, ByteArray>>()
             if (cursor.moveToFirst()) {
                 do {
                     val id = cursor.getLong(cursor.getColumnIndexOrThrow(GALLERY_ID))
-                    val image = cursor.getBlob(cursor.getColumnIndexOrThrow(IMAGE_BYTE))?: ByteArray(0) // 기본값 설정
-                    images.add(Pair(id, image))
+                    if (id in excludedIds) {} else {
+                        val image = cursor.getBlob(cursor.getColumnIndexOrThrow(IMAGE_BYTE))
+                            ?: ByteArray(0) // 기본값 설정
+                        images.add(Pair(id, image))
+                    }
                 } while (cursor.moveToNext())
             }
             cursor.close()
