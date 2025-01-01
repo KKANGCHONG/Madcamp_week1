@@ -4,16 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.week1project.DatabaseHelper
 import com.example.week1project.DatabaseHelper.Companion.CAPSULE_ID
 import com.example.week1project.DatabaseHelper.Companion.CAPSULE_TITLE
 import com.example.week1project.R
+import com.example.week1project.ui.Tab2.Tab2_1_Fragment
+import com.google.android.material.button.MaterialButton
 
 class Tab1_3_Fragment : Fragment() {
     private lateinit var databaseHelper: DatabaseHelper
+    private lateinit var recyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -24,7 +30,7 @@ class Tab1_3_Fragment : Fragment() {
         // DatabaseHelper 초기화
         databaseHelper = DatabaseHelper(requireContext())
         // RecyclerView 초기화
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.recyclerView)
         // 전달받은 title 처리
         val title1 = arguments?.getString("title")
         // 캡슐 ID 가져오기
@@ -45,6 +51,7 @@ class Tab1_3_Fragment : Fragment() {
             // DatabaseHelper 전달
             this.databaseHelper = this@Tab1_3_Fragment.databaseHelper
         }
+
     }
     private fun getCapsuleIdViaTitle(title: String?): Long {
         val db = databaseHelper.readableDatabase

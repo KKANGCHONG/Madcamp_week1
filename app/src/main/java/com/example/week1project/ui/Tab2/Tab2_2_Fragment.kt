@@ -40,7 +40,7 @@ class Tab2_2_Fragment : Fragment() {
         databaseHelper = DatabaseHelper(requireContext())
 
         // RecyclerView 초기화
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.recyclerView2)
         adapter = Tab2_PhotoAdapter(photoList, isDeleteAction = false) { position, id ->
             if (selectedImageIds.contains(id)) {
                 selectedImageIds.remove(id)

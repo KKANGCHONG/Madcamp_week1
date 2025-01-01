@@ -9,7 +9,7 @@
         android:id="@+id/navigation_tab1_1"
         android:name="com.example.week1project.ui.Tab1.Tab1_1_Fragment"
         android:label="캡슐리스트"
-        tools:layout="@layout/fragment_tab1_1" />
+        tools:layout="@layout/fragment_tab1_1"/>
 
     <fragment
         android:id="@+id/navigation_tab1_2"
@@ -19,12 +19,14 @@
     <fragment
         android:id="@+id/navigation_tab1_3"
         android:name="com.example.week1project.ui.Tab1.Tab1_3_Fragment"
-        tools:layout="@layout/fragment_tab1_3" />
+        tools:layout="@layout/fragment_tab1_3">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tab2_1"
         android:name="com.example.week1project.ui.Tab2.Tab2_1_Fragment"
-        tools:layout="@layout/fragment_tab2_1" />
+        tools:layout="@layout/fragment_tab2_1"/>
+
 
     <fragment
         android:id="@+id/navigation_tab2_2"

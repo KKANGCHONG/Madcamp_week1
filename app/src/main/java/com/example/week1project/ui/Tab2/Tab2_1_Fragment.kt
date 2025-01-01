@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.week1project.DatabaseHelper
 import com.example.week1project.R
 import com.google.android.material.button.MaterialButton
+import androidx.navigation.findNavController // 이 부분 추가
 
 class Tab2_1_Fragment : Fragment() {
     private lateinit var databaseHelper: DatabaseHelper
@@ -52,10 +53,20 @@ class Tab2_1_Fragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 이전 BackStack 제거
+        requireActivity().supportFragmentManager.popBackStack(
+            null,
+            androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+
         // DatabaseHelper 초기화
         databaseHelper = DatabaseHelper(requireContext())
+
         // RecyclerView 초기화
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.recyclerView2)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+
         adapter = Tab2_PhotoAdapter(photoList, isDeleteAction = true) { position, id ->
             // 삭제 로직
             val success = databaseHelper.deleteImageFromGallery(id)
@@ -67,12 +78,13 @@ class Tab2_1_Fragment : Fragment() {
                 Toast.makeText(requireContext(), "삭제 실패", Toast.LENGTH_SHORT).show()
             }
         }
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+
         recyclerView.adapter = adapter
         // 권한 확인
         checkStoragePermission()
         // 기존 데이터 불러오기
         loadPhotosFromDatabase()
+
         // 버튼 클릭 이벤트
         val selectPhotosButton = view.findViewById<MaterialButton>(R.id.selectPhotosButton)
         selectPhotosButton.setOnClickListener {
@@ -82,13 +94,26 @@ class Tab2_1_Fragment : Fragment() {
         goToTab2_2Button.setOnClickListener {
             // Tab2_2_Fragment로 이동
             Log.d("asdf", "adsf")
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction
-                .replace(R.id.nav_host_fragment_activity_main, Tab2_2_Fragment()) // 올바른 컨테이너 ID 사용
-                .addToBackStack(null)
-                .commit()
+            val navController = view.findNavController() // Fragment의 뷰에서 호출
+            navController.navigate(R.id.navigation_tab2_2) // Navigation Graph에 정의된 ID로 이동
         }
     }
+
+    private fun resetRecyclerView() {
+        if (photoList.isNotEmpty()) {
+            Log.d("RecyclerView 초기화", "RecyclerView는 이미 초기화되어 있습니다.")
+            return
+        }
+        loadPhotosFromDatabase()
+        Log.d("RecyclerView 초기화", "RecyclerView 초기화 완료")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        resetRecyclerView() // Fragment가 다시 표시될 때 RecyclerView 초기화
+    }
+
+
     private fun checkStoragePermission() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -102,6 +127,7 @@ class Tab2_1_Fragment : Fragment() {
             )
         }
     }
+
     private fun loadPhotosFromDatabase() {
         // photoList를 초기화하지 않고 데이터베이스에서 읽은 데이터를 추가
         val photos = databaseHelper.getAllImagesFromGallery()
