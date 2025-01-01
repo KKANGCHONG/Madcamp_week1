@@ -90,9 +90,9 @@ class Tab2_2_Fragment : Fragment() {
                 bundle.putLong("capsuleId", latestCapsuleId)
                 nextFragment.arguments = bundle
 
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_main, Tab2_3_Fragment())
-                    .addToBackStack(null)
+                requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment_activity_main, nextFragment) // fragment_container는 메인 레이아웃의 Fragment 컨테이너 ID
+                    .addToBackStack(null) // 뒤로 가기 버튼으로 이전 Fragment로 돌아갈 수 있도록 설정
                     .commit()
             } else {
                 Toast.makeText(requireContext(), "캡슐이 없습니다.", Toast.LENGTH_SHORT).show()

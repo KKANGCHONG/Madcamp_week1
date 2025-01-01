@@ -47,6 +47,7 @@ class Tab2_1_Fragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("탭2생성확인", "예")
         return inflater.inflate(R.layout.fragment_tab2_1, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,7 +81,9 @@ class Tab2_1_Fragment : Fragment() {
         val goToTab2_2Button = view.findViewById<MaterialButton>(R.id.nextButton)
         goToTab2_2Button.setOnClickListener {
             // Tab2_2_Fragment로 이동
-            parentFragmentManager.beginTransaction()
+            Log.d("asdf", "adsf")
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction
                 .replace(R.id.nav_host_fragment_activity_main, Tab2_2_Fragment()) // 올바른 컨테이너 ID 사용
                 .addToBackStack(null)
                 .commit()

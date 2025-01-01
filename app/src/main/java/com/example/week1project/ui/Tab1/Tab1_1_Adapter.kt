@@ -1,10 +1,8 @@
 package com.example.week1project.ui.Tab1
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.week1project.databinding.ListItemBinding
 class RecyclerViewAdapter(private var itemList: MutableList<Item.Item1>) :
