@@ -1,10 +1,8 @@
 package com.example.week1project
 
 import android.os.Bundle
-import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_tab1, R.id.navigation_tab2, R.id.navigation_tab3
+                R.id.navigation_tab1_1, R.id.navigation_tab2_1, R.id.navigation_tab3
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

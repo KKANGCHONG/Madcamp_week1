@@ -3,21 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_tab1">
+    app:startDestination="@+id/navigation_tab1_1">
 
     <fragment
-        android:id="@+id/navigation_tab1"
-        android:name="com.example.week1project.ui.Tab1.Tab1Fragment"
+        android:id="@+id/navigation_tab1_1"
+        android:name="com.example.week1project.ui.Tab1.Tab1_1_Fragment"
         android:label="캡슐리스트"
         tools:layout="@layout/fragment_tab1_1" />
 
     <fragment
-        android:id="@+id/navigation_tab2"
-        android:name="com.example.week1project.ui.Tab2.Tab2Fragment"
+        android:id="@+id/navigation_tab1_2"
+        android:name="com.example.week1project.ui.Tab1.Tab1_2_Fragment"
+        tools:layout="@layout/fragment_tab1_2" />
+
+    <fragment
+        android:id="@+id/navigation_tab1_3"
+        android:name="com.example.week1project.ui.Tab1.Tab1_3_Fragment"
+        tools:layout="@layout/fragment_tab1_3" />
+
+    <fragment
+        android:id="@+id/navigation_tab2_1"
+        android:name="com.example.week1project.ui.Tab2.Tab2_1_Fragment"
         tools:layout="@layout/fragment_tab2_1" />
+
+    <fragment
+        android:id="@+id/navigation_tab2_2"
+        android:name="com.example.week1project.ui.Tab2.Tab2_2_Fragment"
+        tools:layout="@layout/fragment_tab2_2"/>
+
+    <fragment
+        android:id="@+id/navigation_tab2_3"
+        android:name="com.example.week1project.ui.Tab2.Tab2_3_Fragment"
+        tools:layout="@layout/fragment_tab2_3"/>
+
+    <fragment
+        android:id="@+id/navigation_tab2_4"
+        android:name="com.example.week1project.ui.Tab2.Tab2_4_Fragment"
+        tools:layout="@layout/fragment_tab2_4"/>
+
 
     <fragment
         android:id="@+id/navigation_tab3"
         android:name="com.example.week1project.ui.Tab3.Tab3Fragment"
         tools:layout="@layout/fragment_tab3" />
+
 </navigation>

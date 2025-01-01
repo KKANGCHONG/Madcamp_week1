@@ -72,7 +72,7 @@ class Tab2_3_Fragment : Fragment() {
             }
 
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, nextFragment)
+                .replace(R.id.nav_host_fragment_activity_main, Tab2_4_Fragment())
                 .addToBackStack(null)
                 .commit()
         }

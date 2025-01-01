@@ -1,5 +1,4 @@
 package com.example.week1project.ui.Tab2
-
 import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -20,12 +19,10 @@ import com.example.week1project.R
 import com.google.android.material.button.MaterialButton
 
 class Tab2_1_Fragment : Fragment() {
-
     private lateinit var databaseHelper: DatabaseHelper
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: Tab2_PhotoAdapter
     private val photoList = mutableListOf<Pair<Long, ByteArray>>() // 변경된 photoList 타입
-
     private val requestGalleryLauncher = registerForActivityResult(
         ActivityResultContracts.GetMultipleContents()
     ) { uris: List<Uri>? ->
@@ -45,23 +42,17 @@ class Tab2_1_Fragment : Fragment() {
             }
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // 레이아웃 파일을 inflate
-        deleteDatabase() // 삭제 메서드 호출
         return inflater.inflate(R.layout.fragment_tab2_1, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // DatabaseHelper 초기화
         databaseHelper = DatabaseHelper(requireContext())
-
         // RecyclerView 초기화
         recyclerView = view.findViewById(R.id.recyclerView)
         adapter = Tab2_PhotoAdapter(photoList, isDeleteAction = true) { position, id ->
@@ -77,29 +68,24 @@ class Tab2_1_Fragment : Fragment() {
         }
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         recyclerView.adapter = adapter
-
         // 권한 확인
         checkStoragePermission()
-
         // 기존 데이터 불러오기
         loadPhotosFromDatabase()
-
         // 버튼 클릭 이벤트
         val selectPhotosButton = view.findViewById<MaterialButton>(R.id.selectPhotosButton)
         selectPhotosButton.setOnClickListener {
             requestGalleryLauncher.launch("image/*")
         }
-
         val goToTab2_2Button = view.findViewById<MaterialButton>(R.id.nextButton)
         goToTab2_2Button.setOnClickListener {
             // Tab2_2_Fragment로 이동
             parentFragmentManager.beginTransaction()
-                .replace(R.id.linearLayout2, Tab2_2_Fragment()) // 올바른 컨테이너 ID 사용
+                .replace(R.id.nav_host_fragment_activity_main, Tab2_2_Fragment()) // 올바른 컨테이너 ID 사용
                 .addToBackStack(null)
                 .commit()
         }
     }
-
     private fun checkStoragePermission() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -113,7 +99,6 @@ class Tab2_1_Fragment : Fragment() {
             )
         }
     }
-
     private fun loadPhotosFromDatabase() {
         // photoList를 초기화하지 않고 데이터베이스에서 읽은 데이터를 추가
         val photos = databaseHelper.getAllImagesFromGallery()
@@ -127,8 +112,6 @@ class Tab2_1_Fragment : Fragment() {
             Log.d("loadPhotosFromDatabase", "데이터베이스에 저장된 사진이 없습니다.")
         }
     }
-
-
     private fun getImageBlobFromUri(uri: Uri): ByteArray? {
         return try {
             requireContext().contentResolver.openInputStream(uri)?.use { it.readBytes() } // BLOB 데이터로 변환
@@ -137,5 +120,4 @@ class Tab2_1_Fragment : Fragment() {
             null
         }
     }
-
 }

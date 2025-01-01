@@ -91,7 +91,7 @@ class Tab2_2_Fragment : Fragment() {
                 nextFragment.arguments = bundle
 
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, nextFragment)
+                    .replace(R.id.nav_host_fragment_activity_main, Tab2_3_Fragment())
                     .addToBackStack(null)
                     .commit()
             } else {
