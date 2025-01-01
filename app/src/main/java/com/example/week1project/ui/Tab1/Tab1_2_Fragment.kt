@@ -19,7 +19,7 @@ class Tab1_2_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Layout inflate
-        return inflater.inflate(R.layout.show_capsule_image, container, false)
+        return inflater.inflate(R.layout.fragment_tab1_2, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,11 +33,18 @@ class Tab1_2_Fragment : Fragment() {
             capsuleImage.setImageResource(R.drawable.capsule_open)
             // 3초 후 다음 화면으로 전환
             Handler(Looper.getMainLooper()).postDelayed({
-                val context = requireContext()
-                val intent = Intent(context, Tab1_3_Fragment::class.java).apply {
-                    putExtra("title", "Some Title") // 전달할 데이터
+
+                val nextFragment = Tab1_3_Fragment().apply {
+                    arguments = Bundle().apply {
+                        putString("title", title) // 전달할 데이터
+                    }
                 }
-                context.startActivity(intent)
+
+                // FragmentTransaction을 통해 Fragment 교체
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment_activity_main, nextFragment) // Fragment를 표시할 Container ID
+                    .addToBackStack(null) // 뒤로 가기 지원
+                    .commit()
                 Log.d("선택된 타이틀 전송", "Some Title")
             }, 3000) // 3000ms = 3초
         }

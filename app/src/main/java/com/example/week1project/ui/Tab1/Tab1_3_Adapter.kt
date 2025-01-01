@@ -98,7 +98,7 @@ class Tab1_3_Adapter(private val itemList: List<Item>) :
         }
         override fun getItemCount() = photos.size
         class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val imageView: ImageView = itemView.findViewById(R.id.capsuleimage)
+            val imageView: ImageView = itemView.findViewById(R.id.capsuleImage)
         }
     }
     override fun getItemCount() = itemList.size
