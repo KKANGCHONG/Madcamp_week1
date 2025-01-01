@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tab2_1_const"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Tab2.Tab2_1_Fragment">
@@ -11,7 +10,7 @@
 
     <!-- 버튼 그룹 -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/recyclerView"
         android:layout_width="383dp"
         android:layout_height="617dp"
         android:layout_margin="8dp"
@@ -27,29 +26,30 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:orientation="vertical"
         android:gravity="center"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <!-- 사진 선택 버튼 -->
-        <Button
-            android:id="@+id/selectPhotosButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="사진 선택"
-            tools:layout_editor_absoluteX="196dp"
-            tools:layout_editor_absoluteY="659dp" />
         <!-- 다음 화면 이동 버튼 -->
 
         <Button
-            android:id="@+id/nextButton"
-            android:layout_width="0dp"
+            android:id="@+id/selectPhotosButton"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:text="사진 선택" />
+
+        <Button
+            android:id="@+id/nextbutton2_1"
+            android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="다음"
+            android:textSize="20sp"
             tools:layout_editor_absoluteX="307dp"
             tools:layout_editor_absoluteY="659dp" />
     </LinearLayout>
