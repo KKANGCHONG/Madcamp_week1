@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F9F9F9">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/CapsuleImage"
-        android:layout_width="245dp"
-        android:layout_height="261dp"
+        android:layout_width="300dp"
+        android:layout_height="317dp"
         android:layout_marginStart="87dp"
-        android:layout_marginTop="235dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="87dp"
         android:layout_marginBottom="235dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+<<<<<<< HEAD:app/src/main/res/layout/capsule_image.xml
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/capsule" />
 
@@ -42,3 +42,25 @@
         tools:layout_editor_absoluteX="284dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+=======
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/capsule" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="177dp"
+        android:text="캡슐을 클릭해보세요!"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/CapsuleImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> 112d57c (last):app/src/main/res/layout/fragment_tab1_2.xml

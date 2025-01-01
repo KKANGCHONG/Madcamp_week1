@@ -14,5 +14,10 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:textColor="@android:color/black"
+<<<<<<< HEAD
         android:textSize="20sp" />
 </LinearLayout>
+=======
+        android:textSize="50sp" />
+</LinearLayout>
+>>>>>>> 112d57c (last)
